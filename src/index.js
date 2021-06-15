@@ -2,13 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-    render() {
+    constructor(props) {
+        super(props);
+
+        // This is the ONLY time we do a direct assignment to this.state!
+        this.state = { lat: 'Finding location...' };
+
         window.navigator.geolocation.getCurrentPosition(
-            (position) => console.log(position),
+            (position) => {
+                //To update state, we ALWAYS use this.state!
+                this.setState({ lat: position.coords.latitude });
+            },
             (err) => console.log(err)
         );
+    }
 
-        return <div>Latitude: </div>
+ // React requires us to define a render method for our JSX
+    render() {
+        return <div>Latitude: {this.state.lat}</div>
     }
 }
 
