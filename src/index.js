@@ -7,7 +7,7 @@ class App extends React.Component {
 
         // This is the ONLY time we do a direct assignment to this.state!
         this.state = { 
-            lat: 'Finding location...',
+            lat: null,
             errorMessage: ''
         };
 
@@ -24,13 +24,15 @@ class App extends React.Component {
 
  // React requires us to define a render method for our JSX
     render() {
-        return (
-            <div>
-                Latitude: {this.state.lat}
-                <br />
-                Error: {this.state.errorMessage}
-            </div>
-        )
+        if (this.state.errorMessage && !this.state.lat) {
+            return <div>Error: {this.state.errorMessage}</div>;
+        }
+
+        if (!this.state.errorMessage && this.state.lat) {
+            return <div>Latitude: {this.state.lat}</div>;
+        }
+
+        return <div>Finding location...</div>;
     }
 }
 
