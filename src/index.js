@@ -10,19 +10,21 @@ class App extends React.Component {
             lat: null,
             errorMessage: ''
         };
+    }
 
+    componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(
-            (position) => {
-                //To update state, we ALWAYS use this.state!
-                this.setState({ lat: position.coords.latitude });
-            },
-            (err) => {
-                this.setState({ errorMessage: err.message });
-            }
+            //To update state, we ALWAYS use this.state!
+            position => this.setState({ lat: position.coords.latitude }),
+            err => this.setState({ errorMessage: err.message })
         );
     }
 
- // React requires us to define a render method for our JSX
+    // componentDidUpdate() {
+    //     console.log('component re-rendered');
+    // }
+
+    // React requires us to define a render method for our JSX
     render() {
         if (this.state.errorMessage && !this.state.lat) {
             return <div>Error: {this.state.errorMessage}</div>;
