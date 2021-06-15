@@ -2,15 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // This is the ONLY time we do a direct assignment to this.state!
-        this.state = { 
-            lat: null,
-            errorMessage: ''
-        };
-    }
+    // This is the ONLY time we do a direct assignment to state/this.state!
+    state = { lat: null, errorMessage: '' };
+        // We don't need to do this in the constructor function because
+        // ... Babel will set up a constructor for us anyway to do this
 
     componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(
